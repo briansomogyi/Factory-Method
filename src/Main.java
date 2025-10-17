@@ -1,82 +1,46 @@
+import person.Person;
 import house.House;
 import nature.Plant;
-import person.AfricanPersonCreator;
-import person.AsianPersonCreator;
-import person.EuropeanPersonCreator;
-import nature.AfricanPlantCreator;
-import nature.AsianPlantCreator;
-import nature.EuropeanPlantCreator;
-import person.Person;
 import scenery.AfricanSceneryFactory;
 import scenery.AsianSceneryFactory;
 import scenery.EuropeanSceneryFactory;
 import scenery.SceneryFactory;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        System.out.println("--- Generating individual components (Your original code) ---");
+        System.out.println("--- Generating complete sceneries using Abstract Factory ---\n");
 
-        // Using the original Character creators
-        System.out.println("\n--- People ---");
-        person.EuropeanPersonCreator europeanCharacterFactory = new person.EuropeanPersonCreator();
-        System.out.println(europeanCharacterFactory.createPerson().draw());
+        // Create and display the European scenery
+        System.out.println("--- European Scenery ---");
+        SceneryFactory europeanFactory = new EuropeanSceneryFactory();
+        createAndDisplayScenery(europeanFactory);
 
-        person.AfricanPersonCreator africanCharacterFactory = new person.AfricanPersonCreator();
-        System.out.println(africanCharacterFactory.createPerson().draw());
-
-        person.AsianPersonCreator asianCharacterFactory = new person.AsianPersonCreator();
-        System.out.println(asianCharacterFactory.createPerson().draw());
-
-
-        // Using the original Plant creators
-        System.out.println("\n--- Plants ---");
-        nature.EuropeanPlantCreator europeanPlantFactory = new nature.EuropeanPlantCreator();
-        System.out.println(europeanPlantFactory.createPlant().render());
-
-        nature.AfricanPlantCreator africanPlantFactory = new nature.AfricanPlantCreator();
-        System.out.println(africanPlantFactory.createPlant().render());
-
-        nature.AsianPlantCreator asianPlantFactory = new nature.AsianPlantCreator();
-        System.out.println(asianPlantFactory.createPlant().render());
-
-
-        // Using the new House creators
-        System.out.println("\n--- Houses ---");
-        house.EuropeanHouseCreator europeanHouseCreator = new house.EuropeanHouseCreator();
-        System.out.println(europeanHouseCreator.createHouse().build());
-
-        house.AsianHouseCreator asianHouseCreator = new house.AsianHouseCreator();
-        System.out.println(asianHouseCreator.createHouse().build());
-
-        house.AfricanHouseCreator africanHouseCreator = new house.AfricanHouseCreator();
-        System.out.println(africanHouseCreator.createHouse().build());
-
-
-        System.out.println("\n\n--- Generating scenery using Abstract Factory ---");
-
-        // Create a European scenery
-        System.out.println("\n--- European Scenery ---");
-        createAndRenderScenery(new EuropeanSceneryFactory());
-
-        // Create an Asian scenery
+        // Create and display the Asian scenery
         System.out.println("\n--- Asian Scenery ---");
-        createAndRenderScenery(new AsianSceneryFactory());
+        SceneryFactory asianFactory = new AsianSceneryFactory();
+        createAndDisplayScenery(asianFactory);
 
-        // Create an African scenery
+        // Create and display the African scenery
         System.out.println("\n--- African Scenery ---");
-        createAndRenderScenery(new AfricanSceneryFactory());
+        SceneryFactory africanFactory = new AfricanSceneryFactory();
+        createAndDisplayScenery(africanFactory);
     }
 
-    public static void createAndRenderScenery(SceneryFactory factory) {
+    /**
+     * Uses a given factory to create a person, a plant, and a house,
+     * and then displays their representations.
+     * @param factory The scenery factory to use (e.g., European, Asian, African).
+     */
+    public static void createAndDisplayScenery(SceneryFactory factory) {
+        // Use the factory to create a family of related objects
         Person person = factory.createPerson();
         Plant plant = factory.createPlant();
         House house = factory.createHouse();
 
-        System.out.println("Rendering a complete scenery:");
-        person.draw();
-        plant.render();
-        house.build();
+        // Display the components of the scenery
+        System.out.println(person.draw());
+        System.out.println(plant.render());
+        System.out.println(house.build());
     }
 }
+
